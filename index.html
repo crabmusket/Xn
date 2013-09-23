@@ -1,0 +1,76 @@
+<html>
+
+<head>
+	<title>Xn</title>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<!-- jQuery -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<!-- mousewheel and smartspinner -->
+	<script type="text/javascript" src="../jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="../smartspinner.js"></script>
+	<!-- WebGLU scripts -->
+	<script type="text/javascript" src="../WebGLU/src/webglu.js"></script>
+	<script type="text/javascript" src="../WebGLU/external/Sylvester.src.js"></script>
+	<!-- All Xn-specific scripts -->
+	<script type="text/javascript" src="canvas.js"></script>
+
+<body onload="start();">
+	<div id="canvasdiv">
+		<center>
+		<canvas id="canvas" width="500" height="500"></canvas>
+		</center>
+	</div>
+	<div id="title">
+		<h1>X<i>n</i></h1>
+		<p>Dungeon generator</p>
+	</div>
+	<div class="dropdown" id="aboutbutton" target="about">
+		<p>About</p>
+	</div>
+	<div class="sidebar" id="about">
+		<p>X<i>n</i> is a program that procedurally generates &quot;dungeons&quot; by arranging rooms of predefined shape in a cubic grid.</p>
+		<p>Its name is inspired by the X16, X18 and X19 laboratories in <a href="http://en.wikipedia.org/wiki/S.T.A.L.K.E.R.:_Shadow_of_Chernobyl">S.T.A.L.K.E.R.: Shadow of Chernobyl</a>.</p>
+		<p>Click and drag the left mouse button to rotate your view of the generated level. Click and drag the right button to zoom, and use the scroll wheel to move the camera focus vertically.</p>
+		<p>Red cubes represent parts of a room, green squares represent doors, and blue planes are corridors.</p>
+		<p>Made with <a href="http://www.python.org">Python</a>, <a href="http://jquery.com/">jQuery</a> and <a href="https://github.com/OneGeek/WebGLU/">WebGLU</a>.</p>
+	</div>
+	<div class="dropdown" id="optionsbutton" target="options">
+		<p>Options</p>
+	</div>
+	<div class="sidebar" id="options">
+		<p>Use the inputs below to set the dimensions of the dungeon you want, then hit &quot;Regenerate&quot; to see the changes.</p>
+		<h1>Dimensions:</h1>
+		<input type="text" id="width" class="smartspinner" /> <br />
+		<input type="text" id="length" class="smartspinner" /> <br />
+		<input type="text" id="height" class="smartspinner" /> <br />
+		<input type="text" id="seed" class="smartspinner" /> <br />
+		<h1>Room placement:</h1>
+		<input type="text" id="sparsity" class="smartspinner" /> <br />
+		<p>Density function:</p>
+		<select id="density" class="dropdown">
+			<option value="simple" title="Adds two rooms per floor.">Simple</option>
+			<option value="even" title="Fills the width and length of the grid.">Even</option>
+			<option value="increasing" title="More rooms as you go further down.">Increasing</option>
+			<option value="decreasing" title="Less rooms as you go further down.">Decreasing</option>
+		</select> <br />
+		<p>Offset function:</p>
+		<select id="offset" class="dropdown">
+			<option value="constant" title="Rooms are added from the centre of each floor.">Constant</option>
+			<option value="random" title="Rooms are added from a random position.">Random</option>
+		</select> <br />
+		<input type="button" id="regenerate" value="Regenerate" onclick="loadMap();"/> <br />
+		<a id="listlink" href="">Generate room list</a> <br />
+		<a id="asciilink" href="">Generate ASCII layout</a> <br />
+	</div>
+	<div class="message" id="loading">
+		<img src="loading.gif" />
+		<p>Generating...</p>
+	</div>
+	<div class="message" id="error">
+		<p>Something is wrong. Please try again later.</p>
+		<p id="errormsg"></p>
+	</div>
+</body>
+
+</html>
